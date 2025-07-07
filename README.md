@@ -1,25 +1,45 @@
-# Project: NLP on Wine Reviews
+# Project: POS and NER Analysis on News Articles
 
 ## Description
 
-This project implements a natural language processing (NLP) pipeline on a dataset of wine reviews (`winemag-data-130k-v2.csv`). The goal is to clean, tokenize, and analyze word frequency (unigrams and bigrams) to extract insights into the language used in the descriptions.
+This project implements a natural language processing (NLP) pipeline focused on Part-of-Speech (POS) tagging and Named Entity Recognition (NER) using a news dataset (`true_news.csv`). The goal is to extract grammatical and semantic insights from news headlines and articles to better understand their structure and mentioned entities.
 
-## Features
+## Key Features
 
-- Initial data loading and exploration with **pandas**.
-- Removal of English **stopwords**.
-- **Punctuation cleaning** using regular expressions (`re`).
-- **Text tokenization** with **NLTK** (`word_tokenize`).
-- **Stemming** using NLTK’s `PorterStemmer`.
-- **Lemmatization** using NLTK’s `WordNetLemmatizer`.
-- Flattening token lists to create a unified corpus.
-- Calculation of **unigram** and **bigram** frequencies with `nltk.ngrams` and `pandas.Series.value_counts()`.
+- **Data Loading**: Read the news dataset with **pandas**.
+- **Text Normalization**:
+  - Lowercasing all text.
+  - Removing English stopwords using NLTK.
+  - Cleaning punctuation and special characters via regular expressions (`re`).
+- **Tokenization**:
+  - Raw tokens (`tokens_raw`) from the original text.
+  - Clean tokens (`tokens_clean`) after stopword and punctuation removal.
+- **Lemmatization**:
+  - Reducing tokens to their base form using NLTK’s `WordNetLemmatizer`.
+- **POS Tagging**:
+  - Tagging raw tokens with **spaCy** (`en_core_web_sm`).
+  - Creating a DataFrame of each token and its POS tag.
+  - Calculating frequency distributions of POS tags and filtering by categories (nouns, verbs, etc.).
+- **Named Entity Recognition (NER)**:
+  - Extracting entities (PERSON, ORG, GPE, DATE, etc.) with **spaCy**.
+  - Aggregating entity counts into a DataFrame.
+  - Filtering and analyzing entities by type.
 
-## Technologies
+## Basic Concepts Covered
+
+1. **Tokenization**: Splitting text into individual tokens or words.
+2. **Stopwords**: Removing common words with little semantic value.
+3. **Regular Expressions**: Pattern matching for cleaning text.
+4. **Lemmatization**: Converting words to their canonical base forms.
+5. **POS Tagging**: Assigning grammatical categories (noun, verb, adjective) to tokens.
+6. **Named Entity Recognition (NER)**: Identifying and classifying named entities in text.
+
+## Technologies Used
 
 - **Python 3.10+**
 - **pandas**
-- **NLTK** (tokenization, stopwords, stemming, lemmatization)
+- **NLTK** (tokenization, stopwords removal, lemmatization)
+- **spaCy** (`en_core_web_sm` for POS and NER)
 - **re** (regular expressions)
 - **Jupyter Notebook**
 
@@ -30,35 +50,30 @@ This project implements a natural language processing (NLP) pipeline on a datase
    git clone https://github.com/your_username/your_repository.git
    cd your_repository
    ```
-2. Create a virtual environment and install dependencies:
+2. Set up a virtual environment and install dependencies:
    ```bash
    python -m venv venv
-   # On macOS/Linux
+   # macOS/Linux
    source venv/bin/activate
-   # On Windows
+   # Windows
    venv\Scripts\activate
    pip install -r requirements.txt
    ```
-3. Download the dataset `winemag-data-130k-v2.csv` and place it in the project root.
+3. Place the `true_news.csv` dataset in the project root.
 
 ## Usage
 
-1. Open the Jupyter Notebook (`wine.ipynb`):
+1. Launch the Jupyter Notebook (`news_nlp.ipynb`):
    ```bash
-   jupyter notebook wine.ipynb
+   jupyter notebook news_nlp.ipynb
    ```
-2. Run all cells to process the data and generate n-gram statistics.
+2. Execute all cells to perform POS tagging and NER, and to view frequency analyses.
 
 ## Project Structure
 
 ```
-├── wine.ipynb                 # Jupyter Notebook with the NLP pipeline
-├── winemag-data-130k-v2.csv   # Dataset of wine reviews
-├── requirements.txt           # Project dependencies
-└── README.md                  # Project documentation (this file)
+├── news_nlp.ipynb     # Notebook demonstrating the POS & NER pipeline
+├── true_news.csv      # Dataset of news articles and headlines
+├── requirements.txt   # Python dependencies
+└── README.md          # Project documentation (this file)
 ```
-
-## License
-
-This project is licensed under the MIT License. Feel free to use and adapt it.
-
